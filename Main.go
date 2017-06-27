@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"regexp"
-	"fmt"
+	"encoding/xml"
 )
 
 var source = "C:/Users/brunoheidorn/go/src/github.com/guildam/ep/"
@@ -20,8 +20,9 @@ type Page struct {
 }
 
 type Menu struct {
-	Path string
-	Body  []byte
+	XMLName   xml.Name
+	menuType  string
+	itemList  []string
 }
 
 //valida caminho/pagina
