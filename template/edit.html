@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit {{.Title}}</title>
+</head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+<style>
+    body {font-family: "Lato", sans-serif}
+    .mySlides {display: none}
+</style>
+
+<body>
+<!--Scripts-->
+<script src="../scripts/scriptjs.js"></script>
+<form action="/save/{{.Title}}" method="POST">
+    <!-- Menu -->
+    <div id="menu"></div>
+
+    <!-- Page content -->
+    <div class="w3-content" style="max-width:2000px;margin-top:46px">
+        <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1800px" id="editArea">
+            <h2 class="w3-wide main-ucase">{{.Title}}</h2>
+                <div ><textarea class="w3-content w3-left-align" name="body" rows="20" cols="80">{{printf "%s" .Body}}</textarea></div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

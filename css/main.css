@@ -1,0 +1,11 @@
+.main-ucase {
+    text-transform: uppercase;
+}
+
+.main-lcase {
+    text-transform: lowercase;
+}
+
+.main-cap {
+    text-transform: capitalize;
+}
