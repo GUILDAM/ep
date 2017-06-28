@@ -20,14 +20,18 @@
 <!--Scripts-->
 <script src="../scripts/scriptjs.js"></script>
 <form action="/save/{{.Title}}" method="POST">
+
+    <a type="submit" class="w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase">save</a>
+
     <!-- Menu -->
     <div id="menu"></div>
 
     <!-- Page content -->
     <div class="w3-content" style="max-width:2000px;margin-top:46px">
         <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1800px" id="editArea">
-            <h2 class="w3-wide main-ucase">{{.Title}}</h2>
+            <h2 class="w3-wide main-ucase">THE {{.Title}}</h2>
                 <div ><textarea class="w3-content w3-left-align" name="body" rows="20" cols="80">{{printf "%s" .Body}}</textarea></div>
+            <div ><input class="w3-button" type="submit" value="Save"></div >
         </div>
     </div>
 </form>

@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Menu menuType="Home">
-    <itemList>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-    </itemList>
+<Menu MenuType="home">
+    <ItemList>
+        <Value>questions</Value>
+    </ItemList>
+</Menu>
+<Menu MenuType="questions">
+    <ItemList>
+        <Value>questions</Value>
+        <Value>edit</Value>
+    </ItemList>
+</Menu>
+<Menu MenuType="edit">
+    <ItemList>
+        <Value>questions</Value>
+        <Value>save</Value>
+    </ItemList>
 </Menu>

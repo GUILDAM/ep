@@ -1,9 +1,11 @@
 //funcão de buscar menu JQuery
-$(function () {
+/*$(function () {
     $.get("../import/menu.html", function (data) {
         $("#menu").append(data);
     });
-});
+
+});*/
+
 
 function myMap() {
 
