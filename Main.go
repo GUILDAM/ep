@@ -22,16 +22,25 @@ type Page struct {
 	Menu  template.HTML
 }
 
+type MenuList struct {
+	MenuName	xml.Name `xml:"MenuList"`
+	Menu	[]Menu `xml:"Menu"`
+}
+
 type Menu struct {
-	XmlName   xml.Name `xml:"Person"`
-	MenuType  string
-	ItemList  []string `xml:"ItemList>Value"`
+	XmlName   xml.Name `xml:"Menu"`
+	MenuType  string	`xml:"MenuType,attr"`
+	ItemList  []string `xml:"ItemList>Item"`
 }
 
 //Loads Menu
-func loadMenu(title string) (template.HTML, error){
+func loadMenu(editFlag bool, title string) (template.HTML, error){
 	filename := source + "bd/menuList"
-	r := Menu{MenuType: title}
+	r := MenuList{}
+	var m Menu
+	if editFlag {
+		title = "edit"
+	}
 	file, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return "", errors.New("Menu xml not found")
@@ -40,15 +49,20 @@ func loadMenu(title string) (template.HTML, error){
 	if err2 != nil {
 		return "", errors.New("Menu not found or an error occurred")
 	}
+	for i:=0; len(r.Menu) > i;i++ {
+		if r.Menu[i].MenuType == title {
+			m = r.Menu[i]
+			break
+		}
+	}
 	var menu template.HTML
-	for i:=0; len(r.ItemList) > i;i++ {
-
-		if r.ItemList[i] != "save" && r.ItemList[i] != "edit" {
-			menu += template.HTML("<a href='/view/" + r.ItemList[i] + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(r.ItemList[i]) + "</a>")
-		} else if r.ItemList[i] == "save" {
-			menu += template.HTML("<a type='submit' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(r.ItemList[i]) + "</a>")
-		} else if r.ItemList[i] == "edit"{
-			menu += template.HTML("<a href='/edit/" + r.ItemList[i] + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(r.ItemList[i]) + "</a>")
+	for i:=0; len(m.ItemList) > i;i++ {
+		if m.ItemList[i] != "save" && m.ItemList[i] != "edit" {
+			menu += template.HTML("<a href='/view/" + m.ItemList[i] + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
+		} else if m.ItemList[i] == "save" {
+			menu += template.HTML("<input type='submit' value='"+ strings.ToUpper(m.ItemList[i]) +"' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'></input>")
+		} else if m.ItemList[i] == "edit"{
+			menu += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 		}
 	}
 	return menu, nil
@@ -71,14 +85,14 @@ func (p *Page) save(path string) error {
 }
 
 //carrega pagina
-func loadPage(path string, title string) (*Page, error) {
+func loadPage(path string, title string, editFlag bool) (*Page, error) {
 	filename := source + path + title + ".html"
-	menu, err := loadMenu(title)
+	menu, err := loadMenu(editFlag, title)
 	if err != nil {
 		fmt.Print(err)
+		return nil, err
 	}
 	body, err2 := ioutil.ReadFile(filename)
-
 	if err2 != nil {
 		return &Page{Title: title, Body: body, Menu: menu}, err2
 	}
@@ -87,9 +101,9 @@ func loadPage(path string, title string) (*Page, error) {
 
 //editar pagina
 func editHandler(w http.ResponseWriter, r *http.Request, title string) {
-	p, err := loadPage("edit/", title)
+	p, err := loadPage("view/", title, true)
 	if err != nil {
-		p = &Page{Title: title}
+		p = &Page{Title: title, Menu: p.Menu}
 	}
 	renderTemplate(w, "edit", p)
 }
@@ -121,7 +135,7 @@ func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
 
 //loads views
 func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
-	p, err := loadPage("view/", title)
+	p, err := loadPage("view/", title, false)
 	if err != nil {
 
 		http.Redirect(w, r, "/edit/"+title, http.StatusFound)
@@ -135,7 +149,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request, title string) {
 	if title == "" {
 		title = "home"
 	}
-	p, err := loadPage("", title)
+	p, err := loadPage("", title, false)
 	if err != nil {
 		http.Redirect(w, r, "/home/", http.StatusFound)
 		return
