@@ -11,8 +11,6 @@ import (
 	. "github.com/guildam/ep/model"
 )
 
-
-
 //valida caminho/pagina
 func getTitle(w http.ResponseWriter, r *http.Request) (string, error) {
 	m := validPath.FindStringSubmatch(r.URL.Path)
