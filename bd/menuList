@@ -35,13 +35,4 @@
               <Item>novo</Item>
           </ItemList>
       </Menu>
-      <Menu MenuType="novo">
-          <Menu></Menu>
-          <ItemList>
-              <Item>questions</Item>
-              <Item>answers</Item>
-              <Item>novo</Item>
-              <Item>edit</Item>
-          </ItemList>
-      </Menu>
   </MenuList>
