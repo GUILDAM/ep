@@ -4,11 +4,10 @@ import (
 	"net/http"
 	"regexp"
 	"html/template"
-	"os"
 )
 
 
-var source = os.Getenv("GOPATH") + "/src/github.com/guildam/ep/"
+var source =  "home/bas/go_home/src/app_d0659813-0363-4187-b63e-9ddd4655b3da" //os.Getenv("GOPATH") + "/src/github.com/guildam/ep/"
 var templates = template.Must(template.ParseFiles(source+"home.html", source+"template/menu.html",
 	source+"template/edit.html", source+"template/view.html"))
 var validPath = regexp.MustCompile("^/(edit|save|view)/([a-zA-Z0-9]+)$|^/$")
