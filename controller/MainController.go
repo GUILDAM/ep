@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"regexp"
 	"html/template"
-	"os"
 )
 
 
