@@ -11,6 +11,7 @@ type Page struct {
 	Title string
 	Body  []byte
 	Menu  template.HTML
+	MenuSmall template.HTML
 }
 
 type MenuList struct {
