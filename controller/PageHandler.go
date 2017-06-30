@@ -82,32 +82,17 @@ func saveMenu(title string) (error){
 		}
 	}
 	if flagNotFound {
-		i := 0
-		var templateMenu Menu
-
 		//New menu item
-		newItemList := []string{title}
-		newMenuItem := Menu{MenuType:title, ItemList: newItemList }
-		newMenuList := &MenuList{nil,[]Menu {newMenuItem} }
+		var newMenuItem = Menu{MenuType:title }
 
 		for i:=0; len(r.Menu) > i;i++ {
-			r.Menu[i].append(newItemList, r.Menu[i].ItemList)
-		}
-		for i:=0; len(r.Menu) > i;i++ {
+			r.Menu[i].ItemList = append(r.Menu[i].ItemList, title)
 			if r.Menu[i].MenuType == "home" {
-				newMenuItem.ItemList = append(newMenuItem.ItemList, r.Menu[i].ItemList )
-				break
+				newMenuItem.ItemList = r.Menu[i].ItemList
+				newMenuItem.ItemList = append(newMenuItem.ItemList, "edit")
 			}
 		}
-
-		templateMenu.ItemList[len(templateMenu.ItemList)+1] = title
-		r.Menu[len(r.Menu) + 1] = templateMenu
-
-
-		for i=0; len(r.Menu)>i;i++  {
-			aux:= r.Menu[i].ItemList
-			r.Menu[i].ItemList[len(aux) + 1] = title
-		}
+		r.Menu = append(r.Menu, newMenuItem)
 
 		output, err := xml.MarshalIndent(r, "  ", "    ")
 		if err != nil {

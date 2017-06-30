@@ -1,20 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<MenuList>
-    <Menu MenuType="home">
-        <ItemList>
-            <Item>questions</Item>
-        </ItemList>
-    </Menu>
-    <Menu MenuType="questions">
-        <ItemList>
-            <Item>questions</Item>
-            <Item>edit</Item>
-        </ItemList>
-    </Menu>
-    <Menu MenuType="edit">
-        <ItemList>
-            <Item>questions</Item>
-            <Item>save</Item>
-        </ItemList>
-    </Menu>
-</MenuList>
+  <MenuList>
+      <MenuList></MenuList>
+      <Menu MenuType="home">
+          <Menu></Menu>
+          <ItemList>
+              <Item>questions</Item>
+              <Item>answers</Item>
+          </ItemList>
+      </Menu>
+      <Menu MenuType="questions">
+          <Menu></Menu>
+          <ItemList>
+              <Item>questions</Item>
+              <Item>edit</Item>
+              <Item>answers</Item>
+          </ItemList>
+      </Menu>
+      <Menu MenuType="edit">
+          <Menu></Menu>
+          <ItemList>
+              <Item>questions</Item>
+              <Item>save</Item>
+              <Item>answers</Item>
+          </ItemList>
+      </Menu>
+      <Menu MenuType="answers">
+          <Menu></Menu>
+          <ItemList>
+              <Item>questions</Item>
+              <Item>answers</Item>
+              <Item>edit</Item>
+          </ItemList>
+      </Menu>
+  </MenuList>
