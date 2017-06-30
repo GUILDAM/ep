@@ -124,11 +124,18 @@ func loadPage(path string, title string, editFlag bool) (*Page, error) {
 
 //editar pagina
 func editHandler(w http.ResponseWriter, r *http.Request, title string) {
-	p, err := loadPage("view/", title, true)
-	if err != nil {
-		p = &Page{Title: title, Menu: p.Menu}
+	if title=="save" || title=="edit" {
+		http.Error(w, "Error: EDIT and SAVE are reserved!", 500)
+		return
+	}else {
+		p, err := loadPage("view/", title, true)
+		if err != nil {
+
+				p = &Page{Title: title, Menu: p.Menu}
+
+		}
+		renderTemplate(w, "edit", p)
 	}
-	renderTemplate(w, "edit", p)
 }
 
 //salvar edição
