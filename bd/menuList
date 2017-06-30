@@ -5,7 +5,7 @@
           <ItemList>
               <Item>questions</Item>
               <Item>answers</Item>
-              <Item>novo</Item>
+              <Item>warhammer</Item>
           </ItemList>
       </Menu>
       <Menu MenuType="questions">
@@ -14,7 +14,7 @@
               <Item>questions</Item>
               <Item>edit</Item>
               <Item>answers</Item>
-              <Item>novo</Item>
+              <Item>warhammer</Item>
           </ItemList>
       </Menu>
       <Menu MenuType="edit">
@@ -23,7 +23,7 @@
               <Item>questions</Item>
               <Item>save</Item>
               <Item>answers</Item>
-              <Item>novo</Item>
+              <Item>warhammer</Item>
           </ItemList>
       </Menu>
       <Menu MenuType="answers">
@@ -32,7 +32,16 @@
               <Item>questions</Item>
               <Item>answers</Item>
               <Item>edit</Item>
-              <Item>novo</Item>
+              <Item>warhammer</Item>
+          </ItemList>
+      </Menu>
+      <Menu MenuType="warhammer">
+          <Menu></Menu>
+          <ItemList>
+              <Item>questions</Item>
+              <Item>answers</Item>
+              <Item>warhammer</Item>
+              <Item>edit</Item>
           </ItemList>
       </Menu>
   </MenuList>
