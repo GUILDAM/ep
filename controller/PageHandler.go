@@ -54,7 +54,7 @@ func loadMenu(editFlag bool, title string) (template.HTML, template.HTML, error)
 			menuSmall += template.HTML("<a href='/view/" + m.ItemList[i] + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 		} else if m.ItemList[i] == "save" {
 			menuConfig += template.HTML("<input type='submit' value='"+ strings.ToUpper(m.ItemList[i]) +"' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'></input>")
-			menuConfigSmall +=  template.HTML("<input type='submit' value='"+ strings.ToUpper(m.ItemList[i]) +"' class='w3-bar-item w3-button w3-padding-large main-ucase'></a>")
+			menuConfigSmall +=  template.HTML("<input type='submit' value='"+ strings.ToUpper(m.ItemList[i]) +"' class='w3-bar-item w3-button w3-padding-large main-ucase'></input>")
 		} else if m.ItemList[i] == "edit"{
 			menuConfig += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 			menuConfigSmall += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
@@ -184,7 +184,7 @@ func editHandler(w http.ResponseWriter, r *http.Request, title string) {
 		p, err := loadPage("view/", title, true)
 		if err != nil {
 
-				p = &Page{Title: title, Menu: p.Menu}
+				p = &Page{Title: title, Menu: p.Menu, MenuSmall: p.MenuSmall}
 
 		}
 		renderTemplate(w, "edit", p)
