@@ -58,9 +58,12 @@ func loadMenu(editFlag bool, title string) (template.HTML, template.HTML, error)
 		} else if m.ItemList[i] == "edit"{
 			menuConfig += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 			menuConfigSmall += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
+<<<<<<< HEAD
 		} else if m.ItemList[i] == "delete"{
 			menuConfig += template.HTML("<a href='/delete/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 			menuConfigSmall += template.HTML("<a href='/delete/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
+=======
+>>>>>>> 3b06b3b38eb07f432b4a1f17c1fbaa713b24d204
 		}
 	}
 	menu += menuConfig
