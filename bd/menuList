@@ -5,10 +5,7 @@
           <ItemList>
               <Item>questions</Item>
               <Item>answers</Item>
-<<<<<<< HEAD
-=======
               <Item>warhammer</Item>
->>>>>>> 3b06b3b38eb07f432b4a1f17c1fbaa713b24d204
           </ItemList>
       </Menu>
       <Menu MenuType="questions">
@@ -17,10 +14,7 @@
               <Item>questions</Item>
               <Item>edit</Item>
               <Item>answers</Item>
-<<<<<<< HEAD
-=======
               <Item>warhammer</Item>
->>>>>>> 3b06b3b38eb07f432b4a1f17c1fbaa713b24d204
           </ItemList>
       </Menu>
       <Menu MenuType="edit">
@@ -29,10 +23,7 @@
               <Item>questions</Item>
               <Item>save</Item>
               <Item>answers</Item>
-<<<<<<< HEAD
-=======
               <Item>warhammer</Item>
->>>>>>> 3b06b3b38eb07f432b4a1f17c1fbaa713b24d204
           </ItemList>
       </Menu>
       <Menu MenuType="answers">
@@ -41,8 +32,6 @@
               <Item>questions</Item>
               <Item>answers</Item>
               <Item>edit</Item>
-<<<<<<< HEAD
-=======
               <Item>warhammer</Item>
           </ItemList>
       </Menu>
@@ -53,7 +42,6 @@
               <Item>answers</Item>
               <Item>warhammer</Item>
               <Item>edit</Item>
->>>>>>> 3b06b3b38eb07f432b4a1f17c1fbaa713b24d204
           </ItemList>
       </Menu>
   </MenuList>
