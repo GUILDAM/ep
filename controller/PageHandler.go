@@ -9,6 +9,7 @@ import (
 	"errors"
 	"strings"
 	. "github.com/guildam/ep/model"
+	"os"
 )
 
 //valida caminho/pagina
@@ -56,7 +57,10 @@ func loadMenu(editFlag bool, title string) (template.HTML, template.HTML, error)
 			menuConfigSmall +=  template.HTML("<input type='submit' value='"+ strings.ToUpper(m.ItemList[i]) +"' class='w3-bar-item w3-button w3-padding-large main-ucase'></a>")
 		} else if m.ItemList[i] == "edit"{
 			menuConfig += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
-			menuSmall += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
+			menuConfigSmall += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
+		} else if m.ItemList[i] == "delete"{
+			menuConfig += template.HTML("<a href='/delete/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
+			menuConfigSmall += template.HTML("<a href='/delete/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 		}
 	}
 	menu += menuConfig
@@ -107,6 +111,55 @@ func saveMenu(title string) (error){
 	return nil
 }
 
+//Delete Menu Item
+func deleteMenu(title string) (error) {
+
+	filename := source + "bd/menuList"
+	r := MenuList{}
+	file, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return errors.New("Menu xml not found")
+	}
+	err = xml.Unmarshal(file, &r)
+	if err != nil {
+		return errors.New("Menu not found or an error occurred")
+	}
+	flagFound:= false
+	for i:=0; len(r.Menu) > i;i++ {
+		if r.Menu[i].MenuType == title {
+			flagFound = true
+			break
+		}
+	}
+
+	if flagFound {
+
+		//remove item
+		for i:=0; len(r.Menu) > i;i++ {
+			for l:=0; len(r.Menu[i].ItemList) > l;l++  {
+				if r.Menu[i].ItemList[l] == title {
+					r.Menu[i].ItemList = append(r.Menu[i].ItemList[:l], r.Menu[i].ItemList[l+1:]...)
+					break
+				}
+			}
+
+			if r.Menu[i].MenuType == title {
+					r.Menu = append(r.Menu[:i], r.Menu[i+1:]...)
+					break
+			}
+		}
+
+		output, err := xml.MarshalIndent(r, "  ", "    ")
+		if err != nil {
+			fmt.Printf("error: %v\n", err)
+			return err
+		}
+		return ioutil.WriteFile(filename, output, 0600)
+	}
+
+	return nil
+}
+
 //carrega pagina
 func loadPage(path string, title string, editFlag bool) (*Page, error) {
 	filename := source + path + title + ".html"
@@ -154,6 +207,20 @@ func saveHandler(w http.ResponseWriter, r *http.Request, title string) {
 		return
 	}
 	http.Redirect(w, r, "/view/"+title, http.StatusFound)
+}
+
+//deletes page and menu in the xml
+func deleteHandler(w http.ResponseWriter, r *http.Request, title string) {
+	path := "view/"
+	filename := source + path + title + ".html"
+	err := deleteMenu(title)
+	if err != nil {
+		fmt.Print(err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	os.Remove(filename)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 //loads views
