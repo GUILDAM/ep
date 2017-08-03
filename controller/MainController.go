@@ -6,7 +6,7 @@ import (
 	"html/template"
 )
 
-
+//Set your workspace on source TODO
 var source = "" //os.Getenv("GOPATH") + "/src/github.com/guildam/ep/"
 var templates = template.Must(template.ParseFiles(source+"home.html", source+"template/menu.html",
 	source+"template/edit.html", source+"template/view.html"))
