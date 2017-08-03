@@ -132,7 +132,7 @@ func deleteMenu(title string) (error) {
 			break
 		}
 	}
-
+	var delItem int
 	if flagFound {
 
 		//remove item
@@ -144,9 +144,12 @@ func deleteMenu(title string) (error) {
 			}
 
 			if r.Menu[i].MenuType == title {
-					r.Menu = append(r.Menu[:i], r.Menu[i+1:]...)
+					delItem = i
 			}
 		}
+
+		r.Menu = append(r.Menu[:delItem], r.Menu[delItem+1:]...)
+
 
 		output, err := xml.MarshalIndent(r, "  ", "    ")
 		if err != nil {
