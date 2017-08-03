@@ -6,6 +6,11 @@
 
 });*/
 
+$(function() {
+    $("#btnDelete").on("click", function() {
+        return confirm("Are you sure?");
+    });
+});
 function myMap() {
 
     var map = new google.maps.Map(document.getElementById('googleMap'), {

@@ -49,7 +49,7 @@ func loadMenu(editFlag bool, title string) (template.HTML, template.HTML, error)
 	var menuConfig template.HTML
 	var menuConfigSmall template.HTML
 	for i:=0; len(m.ItemList) > i;i++ {
-		if m.ItemList[i] != "save" && m.ItemList[i] != "edit" {
+		if m.ItemList[i] != "save" && m.ItemList[i] != "edit" && m.ItemList[i] != "delete" {
 			menu += template.HTML("<a href='/view/" + m.ItemList[i] + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 			menuSmall += template.HTML("<a href='/view/" + m.ItemList[i] + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 		} else if m.ItemList[i] == "save" {
@@ -59,8 +59,8 @@ func loadMenu(editFlag bool, title string) (template.HTML, template.HTML, error)
 			menuConfig += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 			menuConfigSmall += template.HTML("<a href='/edit/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 		} else if m.ItemList[i] == "delete"{
-			menuConfig += template.HTML("<a href='/delete/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
-			menuConfigSmall += template.HTML("<a href='/delete/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
+			menuConfig += template.HTML("<a id='btnDelete' href='/delete/" + title + "' class='w3-bar-item w3-button w3-padding-large w3-hide-small main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
+			menuConfigSmall += template.HTML("<a id='btnDelete' href='/delete/" + title + "' class='w3-bar-item w3-button w3-padding-large main-ucase'>" + strings.ToUpper(m.ItemList[i]) + "</a>")
 		}
 	}
 	menu += menuConfig
@@ -97,6 +97,7 @@ func saveMenu(title string) (error){
 			if r.Menu[i].MenuType == "home" {
 				newMenuItem.ItemList = r.Menu[i].ItemList
 				newMenuItem.ItemList = append(newMenuItem.ItemList, "edit")
+				newMenuItem.ItemList = append(newMenuItem.ItemList, "delete")
 			}
 		}
 		r.Menu = append(r.Menu, newMenuItem)
@@ -139,13 +140,11 @@ func deleteMenu(title string) (error) {
 			for l:=0; len(r.Menu[i].ItemList) > l;l++  {
 				if r.Menu[i].ItemList[l] == title {
 					r.Menu[i].ItemList = append(r.Menu[i].ItemList[:l], r.Menu[i].ItemList[l+1:]...)
-					break
 				}
 			}
 
 			if r.Menu[i].MenuType == title {
 					r.Menu = append(r.Menu[:i], r.Menu[i+1:]...)
-					break
 			}
 		}
 
